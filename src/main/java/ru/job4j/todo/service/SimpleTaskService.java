@@ -38,6 +38,11 @@ public class SimpleTaskService implements TaskService {
 
     @Override
     public List<Task> findAll() {
-        return (List<Task>) taskStore.findAll();
+        return taskStore.findAll();
+    }
+
+    @Override
+    public List<Task> findByStatus(boolean status) {
+        return taskStore.findByStatus(status);
     }
 }

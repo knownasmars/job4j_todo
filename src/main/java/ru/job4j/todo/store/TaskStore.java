@@ -16,4 +16,7 @@ public interface TaskStore {
     Optional<Task> findById(int id);
 
     List<Task> findAll();
+
+    List<Task> findByStatus(boolean status);
+
 }

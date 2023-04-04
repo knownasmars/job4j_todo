@@ -128,4 +128,25 @@ public class SimpleTaskStore implements TaskStore {
         }
         return rsl;
     }
+
+    /**
+     * Получить список задач по статусу выполнения
+     * @param done - параметр статус выполнения
+     * @return список задач по статусу
+     */
+    public List<Task> findByStatus(boolean done) {
+        Session session = sf.openSession();
+        List<Task> rsl = null;
+        try {
+            session.beginTransaction();
+            session.getTransaction().commit();
+            rsl = session.createQuery("from Task where done = :done")
+                    .setParameter("done", done).list();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return rsl;
+    }
 }
