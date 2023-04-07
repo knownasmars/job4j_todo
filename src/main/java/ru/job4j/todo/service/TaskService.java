@@ -19,4 +19,5 @@ public interface TaskService {
 
     List<Task> findByStatus(boolean status);
 
+    boolean complete(Task task);
 }

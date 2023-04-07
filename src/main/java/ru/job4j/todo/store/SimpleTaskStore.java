@@ -47,17 +47,17 @@ public class SimpleTaskStore implements TaskStore {
         try {
             session.beginTransaction();
             session.createQuery(
-                            "DELETE Task WHERE id = :Id")
-                    .setParameter("Id", id)
+                            "DELETE Task WHERE id = :id")
+                    .setParameter("id", id)
                     .executeUpdate();
             session.getTransaction().commit();
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
+            return false;
         } finally {
             session.close();
         }
-        return false;
     }
 
     /**
@@ -148,5 +148,24 @@ public class SimpleTaskStore implements TaskStore {
             session.close();
         }
         return rsl;
+    }
+    @Override
+    public boolean complete(Task task) {
+        Session session = sf.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery(
+                            "UPDATE Task SET done = :done WHERE id = :id")
+                    .setParameter("done", true)
+                    .setParameter("id", task.getId())
+                    .executeUpdate();
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 }

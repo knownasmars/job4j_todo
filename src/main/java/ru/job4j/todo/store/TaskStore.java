@@ -19,4 +19,5 @@ public interface TaskStore {
 
     List<Task> findByStatus(boolean status);
 
+    boolean complete(Task task);
 }
