@@ -37,10 +37,10 @@
     }
     table {
             border-collapse: collapse;
-            width: 100%;
+            width: 100px;
     }
     tbody {
-            background: #E8E8E8;
+            background: #f4f6f7;
     }
 
   </style>
@@ -128,11 +128,11 @@
                               <td th:text="${task.id}"></td>
                               <td th:text="${task.description}"></td>
                               <td th:text="${task.created}"></td>
-                              <td th:text="${task.done}"></td>
+                              <td th:text="${task.done == true} ? 'Completed' : 'In progress'"></td>
 
                               <td>
                                 <div class="row">
-                                  <div class="col-5">
+                                  <div class="col-6">
                                     <a class="btn btn-success" th:href="@{/ex1-tabs-1/complete/{id}(id=${task.id})}">
                                       Complete
                                     </a>
