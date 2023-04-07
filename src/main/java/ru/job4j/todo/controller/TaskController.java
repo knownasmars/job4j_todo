@@ -49,7 +49,7 @@ public class TaskController {
     public String removeAll(Model model, @PathVariable int id) {
         var isDeleted = taskService.deleteById(id);
         if (!isDeleted) {
-            model.addAttribute("message", "Задание с таким \"id\" не найдено!");
+            model.addAttribute("message", "The task with specified \"id\" is not found!");
             return "errors/404";
         }
         return "redirect:/ex1-tabs-1";
@@ -59,7 +59,7 @@ public class TaskController {
     public String completeAll(@ModelAttribute Task task, Model model, @PathVariable int id) {
         var isCompleted = taskService.complete(task);
         if (!isCompleted) {
-            model.addAttribute("message", "Задание с таким \"id\" не найдено!");
+            model.addAttribute("message", "The task with specified \"id\" is not found!");
             return "errors/404";
         }
         return "redirect:/ex1-tabs-1";
