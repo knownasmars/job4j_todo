@@ -124,16 +124,15 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="task : ${tasks}"
-                                                th:style="${task.done == true} ? 'text-decoration: line-through;' : ''"
-                                                th:if="${task.done == false}">
+                                                th:style="${task.done == true} ? 'text-decoration: line-through;' : ''">
                                                 <td th:text="${task.id}"></td>
                                                 <td th:text="${task.description}"></td>
                                                 <td th:text="${task.created}"></td>
-                                                <td th:text="${task.done}"></td>
+                                                <td th:text="${task.done == true} ? 'Completed' : 'In progress'"></td>
 
                                                 <td>
                                                     <div class="row">
-                                                        <div class="col-5">
+                                                        <div class="col-6">
                                                             <a class="btn btn-success" th:href="@{/ex1-tabs-1/complete/{id}(id=${task.id})}">
                                                                 Complete
                                                             </a>
