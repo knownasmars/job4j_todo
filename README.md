@@ -23,8 +23,8 @@ in tabs such as: all / active / completed.
 ## Screenshots 
 <img width="959" alt="#web_app_todo_all" src="https://user-images.githubusercontent.com/106254908/230772477-2db2d4fd-75e7-457e-9a51-0b8f5bfb52b8.png">
 <br>
-<img width="958" alt="#web_app_todo_active" src="https://user-images.githubusercontent.com/106254908/230772509-95b8401d-de5f-419e-821a-8149c69abd9f.png">
+<img width="956" alt="#web_app_todo_active" src="https://user-images.githubusercontent.com/106254908/230776549-0211b7f8-9742-44a0-8bec-1fa70ce3fc96.png">
 <br>
-<img width="958" alt="#web_app_todo_completed" src="https://user-images.githubusercontent.com/106254908/230772526-154389cf-2033-4bec-9167-9f7617c45f2a.png">
+<img width="960" alt="#web_app_todo_completed" src="https://user-images.githubusercontent.com/106254908/230776554-43ccae74-876a-425c-b9e6-faa7f664521d.png">
 <br>
 <img width="960" alt="#web_app_todo_404" src="https://user-images.githubusercontent.com/106254908/230772539-add1ef5f-8c57-4522-9a8c-6afec9cff762.png">
