@@ -46,7 +46,7 @@ public class TaskController {
     }
 
     @GetMapping("/ex1-tabs-1/delete/{id}")
-    public String removeAll(Model model, @PathVariable int id) {
+    public String remove(Model model, @PathVariable int id) {
         var isDeleted = taskService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "The task with specified \"id\" is not found!");
@@ -56,7 +56,7 @@ public class TaskController {
     }
 
     @GetMapping("/ex1-tabs-1/complete/{id}")
-    public String completeAll(@ModelAttribute Task task, Model model, @PathVariable int id) {
+    public String complete(@ModelAttribute Task task, Model model, @PathVariable int id) {
         var isCompleted = taskService.complete(task);
         if (!isCompleted) {
             model.addAttribute("message", "The task with specified \"id\" is not found!");

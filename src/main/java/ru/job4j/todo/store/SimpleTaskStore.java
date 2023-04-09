@@ -7,9 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.job4j.todo.model.Task;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -61,55 +59,6 @@ public class SimpleTaskStore implements TaskStore {
     }
 
     /**
-     * Обновить задачу
-     * @param task - объект задачи для замены текущего объекта
-     * Текущий объект находим, по тому же id, что и у входного объекта
-     * @return true, если обновлено успешно, иначе false
-     */
-    @Override
-    public boolean update(Task task) {
-        Session session = sf.openSession();
-        try {
-            session.beginTransaction();
-            session.createQuery(
-                            "UPDATE Task SET description = :description, created = :created"
-                                    + " WHERE id = :id")
-                    .setParameter("description", task.getDescription())
-                    .setParameter("created", Timestamp.valueOf(task.getCreated()))
-                    .setParameter("id", task.getId())
-                    .executeUpdate();
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return false;
-    }
-
-    /**
-     * Поиск по id
-     * @param id задачи
-     * @return Optional<Task> если значение существует, иначе Optional.empty
-     */
-    @Override
-    public Optional<Task> findById(int id) {
-        Session session = sf.openSession();
-        try {
-            session.beginTransaction();
-            Optional<Task> optionalTask = Optional.of(session.get(Task.class, id));
-            session.getTransaction().commit();
-            return optionalTask;
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
-        }
-        return Optional.empty();
-    }
-
-    /**
      * Получить весь список задач
      * @return список всех задач
      */
@@ -149,6 +98,13 @@ public class SimpleTaskStore implements TaskStore {
         }
         return rsl;
     }
+
+    /**
+     * Завершить задание.
+     * Метод меняет состояние объекта, поле done с false, на true.
+     * @param task - объект заявки
+     * @return значение true, если изменение в бд прошло успешно, иначе false
+     */
     @Override
     public boolean complete(Task task) {
         Session session = sf.openSession();
