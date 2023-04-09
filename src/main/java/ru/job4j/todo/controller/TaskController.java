@@ -36,13 +36,8 @@ public class TaskController {
 
     @PostMapping({"/", "/ex1-tabs-1"})
     public String create(@ModelAttribute Task task, Model model) {
-        try {
-            taskService.save(task);
-            return "redirect:/ex1-tabs-1";
-        } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
-        }
+        taskService.save(task);
+        return "redirect:/ex1-tabs-1";
     }
 
     @GetMapping("/ex1-tabs-1/delete/{id}")
