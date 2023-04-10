@@ -46,8 +46,8 @@ class TaskControllerTest {
 
     @Test
     public void whenChooseActiveTasksThenGetActiveList() {
-        var activeTask = new Task(1, "description", now(), true);
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true);
+        var activeTask = new Task(1, "description", now(), true, "");
+        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "");
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
@@ -60,8 +60,8 @@ class TaskControllerTest {
 
     @Test
     public void whenChooseClosedTasksThenGetClosedList() {
-        var activeTask = new Task(1, "description", now(), true);
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true);
+        var activeTask = new Task(1, "description", now(), true, "");
+        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "");
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.job4j.todo.model.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -52,10 +53,10 @@ public class SimpleTaskStore implements TaskStore {
             return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
-            return false;
         } finally {
             session.close();
         }
+        return false;
     }
 
     /**
@@ -65,7 +66,7 @@ public class SimpleTaskStore implements TaskStore {
     @Override
     public List<Task> findAll() {
         Session session = sf.openSession();
-        List<Task> rsl = null;
+        List<Task> rsl = new ArrayList<>();
         try {
             session.beginTransaction();
             session.getTransaction().commit();

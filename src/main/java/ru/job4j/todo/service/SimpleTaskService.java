@@ -12,7 +12,7 @@ import ru.job4j.todo.store.TaskStore;
 @AllArgsConstructor
 public class SimpleTaskService implements TaskService {
 
-    TaskStore taskStore;
+    private final TaskStore taskStore;
 
     @Override
     public Task save(Task task) {
