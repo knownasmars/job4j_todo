@@ -79,7 +79,7 @@ class TaskControllerTest {
         var model = new ConcurrentModel();
         var view = taskController.remove(model, 1);
 
-        assertThat(view).isEqualTo("redirect:/ex1-tabs-1");
+        assertThat(view).isEqualTo("redirect:/all-tasks");
     }
 
     @Test
@@ -101,7 +101,7 @@ class TaskControllerTest {
         var model = new ConcurrentModel();
         var view = taskController.complete(new Task(), model, 1);
 
-        assertThat(view).isEqualTo("redirect:/ex1-tabs-1");
+        assertThat(view).isEqualTo("redirect:/all-tasks");
     }
 
     @Test
@@ -123,6 +123,6 @@ class TaskControllerTest {
         var model = new ConcurrentModel();
         var view = taskController.create(task, model);
 
-        assertThat(view).isEqualTo("redirect:/ex1-tabs-1");
+        assertThat(view).isEqualTo("redirect:/all-tasks");
     }
 }

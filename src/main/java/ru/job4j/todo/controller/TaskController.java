@@ -7,7 +7,6 @@ import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 
 @Controller
-@RequestMapping({"/","/ex1-tabs-1"})
 public class TaskController {
 
     private final TaskService taskService;
@@ -16,47 +15,47 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping({"/", "/ex1-tabs-1", "/tasks"})
+    @GetMapping({"/", "/all-tasks"})
     public String getAll(Model model) {
         model.addAttribute("tasks", taskService.findAll());
         return "tasks/all";
     }
 
-    @GetMapping("/ex1-tabs-2")
+    @GetMapping("/active-tasks")
     public String getActive(Model model) {
         model.addAttribute("tasks", taskService.findByStatus(false));
         return "tasks/active";
     }
 
-    @GetMapping("/ex1-tabs-3")
+    @GetMapping("/closed-tasks")
     public String getClosed(Model model) {
         model.addAttribute("tasks", taskService.findByStatus(true));
         return "tasks/closed";
     }
 
-    @PostMapping({"/", "/ex1-tabs-1"})
+    @PostMapping({"/", "/all-tasks"})
     public String create(@ModelAttribute Task task, Model model) {
         taskService.save(task);
-        return "redirect:/ex1-tabs-1";
+        return "redirect:/all-tasks";
     }
 
-    @GetMapping("/ex1-tabs-1/delete/{id}")
+    @GetMapping("/all-tasks/delete/{id}")
     public String remove(Model model, @PathVariable int id) {
         var isDeleted = taskService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "The task with specified \"id\" is not found!");
             return "errors/404";
         }
-        return "redirect:/ex1-tabs-1";
+        return "redirect:/all-tasks";
     }
 
-    @GetMapping("/ex1-tabs-1/complete/{id}")
+    @GetMapping("/all-tasks/complete/{id}")
     public String complete(@ModelAttribute Task task, Model model, @PathVariable int id) {
         var isCompleted = taskService.complete(task);
         if (!isCompleted) {
             model.addAttribute("message", "The task with specified \"id\" is not found!");
             return "errors/404";
         }
-        return "redirect:/ex1-tabs-1";
+        return "redirect:/all-tasks";
     }
 }
