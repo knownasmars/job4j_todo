@@ -74,46 +74,18 @@ class TaskControllerTest {
 
     @Test
     public void whenDeleteTasksThenSuccessfullyDone() {
-        when(taskService.deleteById(any(Integer.class))).thenReturn(true);
-
         var model = new ConcurrentModel();
         var view = taskController.remove(model, 1);
 
         assertThat(view).isEqualTo("redirect:/all-tasks");
-    }
-
-    @Test
-    public void whenDeleteTasksThenGotError() {
-        when(taskService.deleteById(any(Integer.class))).thenReturn(false);
-
-        var model = new ConcurrentModel();
-        var view = taskController.remove(model, 1);
-        var message = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(message).isEqualTo("The task with specified \"id\" is not found!");
     }
 
     @Test
     public void whenCompleteTasksThenSuccessfullyDone() {
-        when(taskService.complete(any(Task.class))).thenReturn(true);
-
         var model = new ConcurrentModel();
         var view = taskController.complete(new Task(), model, 1);
 
         assertThat(view).isEqualTo("redirect:/all-tasks");
-    }
-
-    @Test
-    public void whenCompleteTasksThenGotError() {
-        when(taskService.deleteById(any(Integer.class))).thenReturn(false);
-
-        var model = new ConcurrentModel();
-        var view = taskController.complete(new Task(), model, 1);
-        var message = model.getAttribute("message");
-
-        assertThat(view).isEqualTo("errors/404");
-        assertThat(message).isEqualTo("The task with specified \"id\" is not found!");
     }
 
     @Test

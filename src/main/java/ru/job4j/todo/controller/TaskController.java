@@ -7,6 +7,7 @@ import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 
 @Controller
+@RequestMapping("/")
 public class TaskController {
 
     private final TaskService taskService;
@@ -41,21 +42,13 @@ public class TaskController {
 
     @GetMapping("/all-tasks/delete/{id}")
     public String remove(Model model, @PathVariable int id) {
-        var isDeleted = taskService.deleteById(id);
-        if (!isDeleted) {
-            model.addAttribute("message", "The task with specified \"id\" is not found!");
-            return "errors/404";
-        }
+        taskService.deleteById(id);
         return "redirect:/all-tasks";
     }
 
     @GetMapping("/all-tasks/complete/{id}")
     public String complete(@ModelAttribute Task task, Model model, @PathVariable int id) {
-        var isCompleted = taskService.complete(task);
-        if (!isCompleted) {
-            model.addAttribute("message", "The task with specified \"id\" is not found!");
-            return "errors/404";
-        }
+        taskService.complete(task);
         return "redirect:/all-tasks";
     }
 }

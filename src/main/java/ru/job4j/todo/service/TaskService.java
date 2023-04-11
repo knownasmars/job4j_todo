@@ -8,12 +8,12 @@ public interface TaskService {
 
     Task save(Task task);
 
-    boolean deleteById(int id);
+    void deleteById(int id);
 
 
     List<Task> findAll();
 
     List<Task> findByStatus(boolean status);
 
-    boolean complete(Task task);
+    void complete(Task task);
 }
