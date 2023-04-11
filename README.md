@@ -4,7 +4,6 @@
 * [Summary](#summary)
 * [Tech Stack](#tech-stack)
 * [Environment](#environment)
-* [Project launching](#project-launching)
 * [Contacts](#contacts)
 * [Screenshots](#screenshots)
 
@@ -30,55 +29,21 @@ in tabs such as: all / active / completed.
 - HTML, CSS
 
 ## Environment
-JDK 17, IntelliJ IDEA CE 2021.3.3, Maven 3.8.1, PostrgreSQL 15, Windows 11
-
-## Project launching
-#### 1. Create SQL database 
-```
-    CREATE DATABASE todo;
-```
-
-#### 2. Create SQL table 
-```
-    CREATE TABLE tasks(
-    id SERIAL PRIMARY KEY,
-    description TEXT,
-    created TIMESTAMP,
-    done BOOLEAN,
-    title TEXT
-    );
-```
-
-#### 3. Add the dependencies into the project pom.xml
-
-#### 4. To run this project, install it locally using npm:
-```
-    # Clone this repository
-    $ git clone https://github.com/knownasmars/job4j_todo
-    
-    # Go into the repository
-    $ cd job4j_todo
-    
-    # Install dependencies
-    $ npm install
-    
-    # Run the app
-    $ npm start
-```
+JDK 17, IntelliJ IDEA CE 2021.3.3, Maven 3.8.1, PostrgreSQL 15
 
 ## Contacts
 telegram: @knownasmars
 
 ## Screenshots 
 
-### - Picking all tasks:
+### picking all tasks:
 <img width="959" alt="#web_app_todo_all" src="https://user-images.githubusercontent.com/106254908/230772477-2db2d4fd-75e7-457e-9a51-0b8f5bfb52b8.png">
 
-### - Picking active tasks:
+### picking active tasks:
 <img width="956" alt="#web_app_todo_active" src="https://user-images.githubusercontent.com/106254908/230776549-0211b7f8-9742-44a0-8bec-1fa70ce3fc96.png">
 
-### - Picking completed tasks:
+### picking completed tasks:
 <img width="960" alt="#web_app_todo_completed" src="https://user-images.githubusercontent.com/106254908/230776554-43ccae74-876a-425c-b9e6-faa7f664521d.png">
 
-### - Getting an error
+### getting an error
 <img width="960" alt="#web_app_todo_404" src="https://user-images.githubusercontent.com/106254908/230772539-add1ef5f-8c57-4522-9a8c-6afec9cff762.png">
