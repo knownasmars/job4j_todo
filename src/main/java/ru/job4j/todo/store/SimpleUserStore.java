@@ -1,58 +1,53 @@
 package ru.job4j.todo.store;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import org.sql2o.Sql2o;
 import ru.job4j.todo.model.User;
 
 import java.util.Optional;
 
 @Repository
+@AllArgsConstructor
 public class SimpleUserStore implements UserStore {
 
-    private static final Logger LOG = LoggerFactory.getLogger(
-            SimpleUserStore.class.getName());
-
-    private final Sql2o sql2o;
-
-    public SimpleUserStore(Sql2o sql2o) {
-        this.sql2o = sql2o;
-    }
+    private final SessionFactory sf;
 
     @Override
     public Optional<User> save(User user) {
-        try (var connection = sql2o.open()) {
-            var sql = """
-                  INSERT INTO todo_user(name, login, password)
-                  VALUES (:name, :login, :password)
-                  """;
-            var query = connection.createQuery(sql, true)
-                    .addParameter("name", user.getName())
-                    .addParameter("login", user.getLogin())
-                    .addParameter("password", user.getPassword());
-            int generatedId = query.executeUpdate().getKey(Integer.class);
-            user.setId(generatedId);
-            return Optional.of(user);
-        } catch (Exception e) {
-            LOG.error("Пользователь с такими данными уже существует", e);
+        Session session = sf.openSession();
+        Optional<User> result = Optional.empty();
+        try {
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+            result = Optional.of(user);
+        } catch (Exception exception) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        return Optional.empty();
+        return result;
     }
 
     @Override
     public Optional<User> findByLoginAndPassword(String login, String password) {
-        try (var connection = sql2o.open()) {
-            var query = connection.createQuery(
-                    "SELECT * FROM todo_user WHERE login = :login and password = :password;"
-            );
-            query.addParameter("login", login);
-            query.addParameter("password", password);
-            var user =
-                    query.setColumnMappings(User.COLUMN_MAPPING)
-                            .executeAndFetchFirst(User.class);
-            return Optional.ofNullable(user);
+        Session session = sf.openSession();
+        Optional<User> result = Optional.empty();
+        try {
+            session.beginTransaction();
+            var query = session.createQuery("FROM User WHERE login = :login "
+                            + "AND password = :password", User.class).setParameter("login", login)
+                    .setParameter("password", password);
+            result = query.uniqueResultOptional();
+            session.getTransaction().commit();
+        } catch (Exception exception) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
+        return result;
     }
 }

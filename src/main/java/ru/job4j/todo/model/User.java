@@ -3,22 +3,13 @@ package ru.job4j.todo.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Map;
 
 @Entity
-@Table(name = "auto_users")
+@Table(name = "todo_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
-    public static final Map<String, String> COLUMN_MAPPING = Map.of(
-            "id", "id",
-            "name", "name",
-            "login", "login",
-            "password", "password"
-    );
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
