@@ -7,6 +7,7 @@ import org.springframework.ui.ConcurrentModel;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -37,7 +38,8 @@ class TaskControllerTest {
         when(taskService.findAll()).thenReturn(expected);
 
         var model = new ConcurrentModel();
-        var view = taskController.getAll(model);
+        HttpSession session = mock(HttpSession.class);
+        var view = taskController.getAll(model, session);
         var actual = model.getAttribute("tasks");
 
         assertThat(view).isEqualTo("tasks/all");
@@ -53,7 +55,8 @@ class TaskControllerTest {
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
 
         var model = new ConcurrentModel();
-        var view = taskController.getActive(model);
+        HttpSession session = mock(HttpSession.class);
+        var view = taskController.getActive(model, session);
 
         assertThat(view).isEqualTo("tasks/active");
     }
@@ -67,7 +70,8 @@ class TaskControllerTest {
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
 
         var model = new ConcurrentModel();
-        var view = taskController.getClosed(model);
+        HttpSession session = mock(HttpSession.class);
+        var view = taskController.getClosed(model, session);
 
         assertThat(view).isEqualTo("tasks/closed");
     }

@@ -36,14 +36,23 @@ telegram: @knownasmars
 
 ## Screenshots 
 
-### picking all tasks:
-<img width="959" alt="#web_app_todo_all" src="https://user-images.githubusercontent.com/106254908/230772477-2db2d4fd-75e7-457e-9a51-0b8f5bfb52b8.png">
+### picking all tasks and user is logged out:
+<img width="960" alt="#web_app_todo_all_tasks" src="https://user-images.githubusercontent.com/106254908/231991840-59e1388a-348c-4121-8f83-1a398432dbb1.png">
 
-### picking active tasks:
-<img width="956" alt="#web_app_todo_active" src="https://user-images.githubusercontent.com/106254908/230776549-0211b7f8-9742-44a0-8bec-1fa70ce3fc96.png">
+### picking active tasks and user is logged out:
+<img width="960" alt="#web_app_todo_active_tasks" src="https://user-images.githubusercontent.com/106254908/231992510-cbd1688f-01bb-4b91-ab01-e0fffdd3b261.png">
 
-### picking completed tasks:
-<img width="960" alt="#web_app_todo_completed" src="https://user-images.githubusercontent.com/106254908/230776554-43ccae74-876a-425c-b9e6-faa7f664521d.png">
+### picking completed tasks and user is logged out:
+<img width="960" alt="#web_app_todo_completed_tasks" src="https://user-images.githubusercontent.com/106254908/231992678-0715a114-2447-432b-beb0-4938c40c482c.png">
 
-### getting an error
+### getting an error:
 <img width="960" alt="#web_app_todo_404" src="https://user-images.githubusercontent.com/106254908/230772539-add1ef5f-8c57-4522-9a8c-6afec9cff762.png">
+
+### Sign up page:
+<img width="960" alt="#web_app_todo_sign_up_page" src="https://user-images.githubusercontent.com/106254908/231992832-71d8fc9e-4381-479c-ae81-f9bb73c8c80e.png">
+
+### Log in page with incorrect input data:
+<img width="960" alt="#web_app_todo_sign_in_page" src="https://user-images.githubusercontent.com/106254908/231993026-81dc48ae-886c-4ac8-8bac-b3d372fa2d0f.png">
+
+### All task page when user is logged in:
+<img width="960" alt="#web_app_todo_logged_in_user" src="https://user-images.githubusercontent.com/106254908/231993113-d8bcc610-68d6-4245-9dca-4ae566fa1e58.png">
