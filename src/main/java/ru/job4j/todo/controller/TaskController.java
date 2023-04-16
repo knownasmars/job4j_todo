@@ -21,42 +21,26 @@ public class TaskController {
 
     @GetMapping({"/", "/all-tasks"})
     public String getAll(Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         model.addAttribute("tasks", taskService.findAll());
         return "tasks/all";
     }
 
     @GetMapping("/active-tasks")
     public String getActive(Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         model.addAttribute("tasks", taskService.findByStatus(false));
         return "tasks/active";
     }
 
     @GetMapping("/closed-tasks")
     public String getClosed(Model model, HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
         model.addAttribute("tasks", taskService.findByStatus(true));
         return "tasks/closed";
     }
 
     @PostMapping({"/", "/all-tasks"})
-    public String create(@ModelAttribute Task task, Model model) {
+    public String create(Model model, @ModelAttribute Task task, @SessionAttribute User user) {
+        model.addAttribute("user", user);
+        task.setUser(user);
         taskService.save(task);
         return "redirect:/all-tasks";
     }

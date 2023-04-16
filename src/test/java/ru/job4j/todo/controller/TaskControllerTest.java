@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
@@ -39,6 +40,7 @@ class TaskControllerTest {
 
         var model = new ConcurrentModel();
         HttpSession session = mock(HttpSession.class);
+        User user = mock(User.class);
         var view = taskController.getAll(model, session);
         var actual = model.getAttribute("tasks");
 
@@ -48,8 +50,9 @@ class TaskControllerTest {
 
     @Test
     public void whenChooseActiveTasksThenGetActiveList() {
-        var activeTask = new Task(1, "description", now(), true, "");
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "");
+        User user = mock(User.class);
+        var activeTask = new Task(1, "description", now(), true, "", user);
+        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "", user);
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
@@ -63,8 +66,9 @@ class TaskControllerTest {
 
     @Test
     public void whenChooseClosedTasksThenGetClosedList() {
-        var activeTask = new Task(1, "description", now(), true, "");
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "");
+        User user = mock(User.class);
+        var activeTask = new Task(1, "description", now(), true, "", user);
+        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "", user);
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
@@ -97,7 +101,8 @@ class TaskControllerTest {
         var task = new Task(1, "description");
 
         var model = new ConcurrentModel();
-        var view = taskController.create(task, model);
+        User user = mock(User.class);
+        var view = taskController.create(model, task, user);
 
         assertThat(view).isEqualTo("redirect:/all-tasks");
     }

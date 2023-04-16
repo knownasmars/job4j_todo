@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Task {
 
     @Id
@@ -29,4 +31,9 @@ public class Task {
 
     @EqualsAndHashCode.Exclude
     private String title = "";
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

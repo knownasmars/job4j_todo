@@ -51,11 +51,7 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
-                <div class="d-flex" th:if="${user.name == 'Гость'}">
-                    <a class="nav-link text-light" style="color: white;" th:href="@{/users/register}">Sign up</a>
-                    <a class="nav-link text-light" style="color: white;" th:href="@{/users/login}">Sign in</a>
-                </div>
-                <div class="d-flex" th:if="${user.name != 'Гость'}">
+                <div class="d-flex">
                     <a class="nav-link text-light" style="color: white;" href="#" th:text="${user.name}"></a>
                     <a class="nav-link text-light" style="color: white;" th:href="@{/users/logout}">Log out</a>
                 </div>
@@ -121,13 +117,23 @@
                                     <div class="tableFixHead">
                                         <table class="table">
                                             <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Task</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">User</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             <tr th:each="task : ${tasks}"
                                                 th:style="${task.done} ? 'text-decoration: line-through;' : ''">
                                                 <td th:text="${task.id}"></td>
                                                 <td th:text="${task.description}"></td>
                                                 <td th:text="${task.created}"></td>
                                                 <td th:text="${task.done} ? 'Completed' : 'In progress'"></td>
-
+                                                <td th:text="${task.user.name}"></td>
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-6">

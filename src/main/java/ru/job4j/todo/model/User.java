@@ -10,15 +10,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NonNull
     @EqualsAndHashCode.Exclude
     private String name;
+
     @NonNull
     private String login;
+
     @NonNull
     @EqualsAndHashCode.Exclude
     private String password;
+
 }
