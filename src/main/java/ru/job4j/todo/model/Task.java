@@ -11,29 +11,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull
+    @EqualsAndHashCode.Include
     private int id;
 
     @NonNull
     private String description;
 
-    @EqualsAndHashCode.Exclude
+    @NonNull
     private LocalDateTime created = LocalDateTime.now();
 
-    @EqualsAndHashCode.Exclude
     private boolean done;
 
-    @EqualsAndHashCode.Exclude
     private String title = "";
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
 
 }

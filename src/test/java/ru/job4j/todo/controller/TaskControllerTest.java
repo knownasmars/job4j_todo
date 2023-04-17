@@ -4,15 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 
+import ru.job4j.todo.model.Priority;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.PriorityService;
 import ru.job4j.todo.service.TaskService;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
-import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -22,12 +21,15 @@ class TaskControllerTest {
 
     private TaskService taskService;
 
+    private PriorityService priorityService;
+
     private TaskController taskController;
 
     @BeforeEach
     public void initServices() {
         taskService = mock(TaskService.class);
-        taskController = new TaskController(taskService);
+        priorityService = mock(PriorityService.class);
+        taskController = new TaskController(taskService, priorityService);
     }
 
     @Test
@@ -39,9 +41,8 @@ class TaskControllerTest {
         when(taskService.findAll()).thenReturn(expected);
 
         var model = new ConcurrentModel();
-        HttpSession session = mock(HttpSession.class);
         User user = mock(User.class);
-        var view = taskController.getAll(model, session);
+        var view = taskController.getAll(model);
         var actual = model.getAttribute("tasks");
 
         assertThat(view).isEqualTo("tasks/all");
@@ -50,49 +51,45 @@ class TaskControllerTest {
 
     @Test
     public void whenChooseActiveTasksThenGetActiveList() {
-        User user = mock(User.class);
-        var activeTask = new Task(1, "description", now(), true, "", user);
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "", user);
+        var activeTask = new Task(1, "description");
+        activeTask.setDone(true);
+        var anotherActiveTask = new Task(2, "anotherDescription");
+        anotherActiveTask.setDone(true);
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
 
         var model = new ConcurrentModel();
-        HttpSession session = mock(HttpSession.class);
-        var view = taskController.getActive(model, session);
+        var view = taskController.getActive(model);
 
         assertThat(view).isEqualTo("tasks/active");
     }
 
     @Test
     public void whenChooseClosedTasksThenGetClosedList() {
-        User user = mock(User.class);
-        var activeTask = new Task(1, "description", now(), true, "", user);
-        var anotherActiveTask = new Task(2, "anotherDescription", now(), true, "", user);
+        var activeTask = new Task(1, "description");
+        activeTask.setDone(true);
+        var anotherActiveTask = new Task(2, "anotherDescription");
+        anotherActiveTask.setDone(true);
         var taskList = List.of(activeTask, anotherActiveTask);
 
         when(taskService.findByStatus(any(Boolean.class))).thenReturn(taskList);
 
         var model = new ConcurrentModel();
-        HttpSession session = mock(HttpSession.class);
-        var view = taskController.getClosed(model, session);
+        var view = taskController.getClosed(model);
 
         assertThat(view).isEqualTo("tasks/closed");
     }
 
     @Test
     public void whenDeleteTasksThenSuccessfullyDone() {
-        var model = new ConcurrentModel();
-        var view = taskController.remove(model, 1);
-
+        var view = taskController.remove(1);
         assertThat(view).isEqualTo("redirect:/all-tasks");
     }
 
     @Test
     public void whenCompleteTasksThenSuccessfullyDone() {
-        var model = new ConcurrentModel();
-        var view = taskController.complete(new Task(), model, 1);
-
+        var view = taskController.complete(new Task());
         assertThat(view).isEqualTo("redirect:/all-tasks");
     }
 
@@ -102,6 +99,7 @@ class TaskControllerTest {
 
         var model = new ConcurrentModel();
         User user = mock(User.class);
+        Priority priority = mock(Priority.class);
         var view = taskController.create(model, task, user);
 
         assertThat(view).isEqualTo("redirect:/all-tasks");

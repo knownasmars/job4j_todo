@@ -7,6 +7,7 @@ import ru.job4j.todo.model.Task;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -42,7 +43,8 @@ public class SimpleTaskStore implements TaskStore {
      */
     @Override
     public List<Task> findAll() {
-        return crudRepository.query("from Task", Task.class);
+        return crudRepository.query(
+                "from Task t join fetch t.priority order by t.priority ASC", Task.class);
     }
 
     /**
@@ -52,7 +54,7 @@ public class SimpleTaskStore implements TaskStore {
      */
     public List<Task> findByStatus(boolean done) {
         return crudRepository.query(
-                "from Task where done = :done",
+                "from Task as t JOIN FETCH t.priority where t.done = :done order by t.priority",
                 Task.class,
                 Map.of("done", done));
     }
